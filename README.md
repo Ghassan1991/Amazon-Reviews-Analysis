@@ -1,44 +1,75 @@
-Introduction
+# Amazon Reviews Sentiment Analysis
 
-This project demonstrates a complete data science workflow using the Amazon Polarity Reviews dataset, with a focus on data wrangling, exploratory data analysis (EDA), and initial preparation for text-based machine learning tasks. The notebook guides data scientists through essential steps: from loading real-world data, performing basic EDA, visualizing text distributions, to preparing the data for downstream NLP modeling and fine-tuning.
+## 🚀 Overview
+This project builds and serves a sentiment analysis model on Amazon product reviews using:
+- Data wrangling & EDA (pandas, sklearn)
+- Text preprocessing (spaCy, NLTK)
+- Classic ML (Logistic Regression)
+- LLM Fine-tuning (DistilBERT via Hugging Face Transformers)
+- Model API with FastAPI
 
-What Was Done
+## 📂 Dataset
+- **Source:** [Amazon Polarity Dataset](https://huggingface.co/datasets/amazon_polarity)
+- 20,000 sample reviews, labeled as positive or negative.
 
-Environment and Library Setup
-Installs key Python libraries needed for data science and natural language processing, specifically:
-- datasets (Hugging Face)
-- pandas
-- matplotlib
+## 📊 Project Steps
+1. **Data Wrangling & EDA:** Load, clean, and explore Amazon review data.
+2. **Text Preprocessing:** Tokenization, stopword removal, lemmatization.
+3. **Classic ML:** Train/test with Logistic Regression, evaluate metrics.
+4. **LLM Fine-Tuning:** Fine-tune DistilBERT for sentiment classification.
+5. **Model Serving:** Deploy via FastAPI (local API).
 
-Data Loading
+## 🛠️ Requirements
+- Python 3.9+
+- `pandas`, `scikit-learn`, `spaCy`, `nltk`
+- `torch`, `transformers`
+- `fastapi`, `uvicorn`
 
-Utilizes the Hugging Face datasets library to load the Amazon Polarity Reviews dataset.
-Loads a manageable subset of 10,000 rows to optimize for speed and demonstration purposes.
-Converts the dataset into a pandas DataFrame for flexible data manipulation.
+> Install requirements with:  
+> `pip install -r requirements.txt`
 
-Basic Exploratory Data Analysis (EDA)
+## 🏃‍♂️ How to Run
 
-Examines the distribution of the label (sentiment class) to understand class balance.
-Checks for missing values in the DataFrame to assess data quality.
-Samples a few entries to inspect the structure and contents of the dataset.
+1. **Train & Fine-tune:**  
+   Run the notebook `Data_Wrangling_and_finetune.ipynb` (Colab or Jupyter).
 
-Text Feature Engineering
+2. **Serve the Model Locally:**
+   - Download/export the `finetuned_distilbert` folder into your repo.
+   - Start FastAPI:
+     ```bash
+     uvicorn serve_model:app --reload
+     ```
+   - Visit [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) for the interactive API docs.
 
-Adds a new column, word_count, representing the number of words in each review’s content.
-Computes summary statistics (count, mean, std, etc.) for word_count to better understand review length distribution.
+3. **Sample API Request:**
+   - POST to `/predict`:
+     ```json
+     {
+       "text": "I love this product! Works great."
+     }
+     ```
+   - Response:
+     ```json
+     {
+       "result": [{"label": "LABEL_1", "score": 0.98}]
+     }
+     ```
 
-Visualization
 
-Plots a histogram of review lengths (number of words per review) to visualize text distribution, using matplotlib.
-(Optional/Preparation) - Fine-Tuning Preparation
-The notebook lays the groundwork for subsequent steps such as data cleaning, preprocessing, and fine-tuning language models (though these steps may be further developed in future versions).
+## 🙋‍♂️ Author
+Ghassan Alkahlout
 
-References & Dataset Source
+## 📚 References
+- [Amazon Polarity Dataset](https://huggingface.co/datasets/amazon_polarity)
+- [Hugging Face Transformers](https://huggingface.co/docs/transformers/index)
+- [spaCy Documentation](https://spacy.io/usage)
+- [FastAPI Docs](https://fastapi.tiangolo.com/)
 
-Amazon Polarity Reviews Dataset – Hugging Face: https://huggingface.co/datasets/amazon_polarity
+---
 
-pandas documentation: https://pandas.pydata.org/docs/
+## ✅ Next Steps
 
-matplotlib documentation: https://matplotlib.org/stable/users/index.html
+- Try LoRA/QLoRA fine-tuning for larger models.
+- Move to Fake News Detection as next project.
+- Experiment with deployment (Docker, CI/CD) and agentic workflows.
 
-Hugging Face Datasets documentation: https://huggingface.co/docs/datasets
