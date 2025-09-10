@@ -1,4 +1,5 @@
 Introduction
+
 This project demonstrates a complete data science workflow using the Amazon Polarity Reviews dataset, with a focus on data wrangling, exploratory data analysis (EDA), and initial preparation for text-based machine learning tasks. The notebook guides data scientists through essential steps: from loading real-world data, performing basic EDA, visualizing text distributions, to preparing the data for downstream NLP modeling and fine-tuning.
 
 What Was Done
